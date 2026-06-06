@@ -11,7 +11,9 @@ export const submissionSchema = z.object({
     message: 'URL must start with http:// or https://',
   }),
   description: z.string().max(100).optional(),
-  consent: z.literal(true, { errorMap: () => ({ message: 'Consent is required.' }) }),
+  consent: z.boolean().refine(val => val === true, {
+    message: 'You must agree before submitting'
+  }),
 });
 
 export type SubmissionFormData = z.infer<typeof submissionSchema>;

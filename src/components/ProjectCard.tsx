@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Project } from '../types';
+import type { Project } from '../types';
 import { getCardTheme, getDomain } from '../lib/utils';
 
 interface ProjectCardProps {

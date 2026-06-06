@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Project } from "../types";
+import type { Project } from "../types";
 import { shuffleArray } from "../lib/utils";
 import { ProjectCard } from "./ProjectCard";
 
