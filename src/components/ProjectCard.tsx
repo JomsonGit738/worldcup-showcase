@@ -28,7 +28,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
       transition={{ duration: 0.4 }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="relative cursor-pointer overflow-hidden rounded-2xl border p-5 h-full flex flex-col justify-between transition-all"
+      className="relative cursor-pointer overflow-hidden rounded-2xl border p-4 md:p-5 h-full flex flex-col justify-between transition-all"
       style={{
         background: `linear-gradient(135deg, ${theme.gradientFrom}, ${theme.gradientTo})`,
         borderColor: isHovered ? `${theme.border}cc` : `${theme.border}80`,
@@ -58,7 +58,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
         <p className="text-sm font-medium mb-1" style={{ color: theme.accent }}>@{project.telegramUsername}</p>
         <p className="text-xs font-mono text-slate-500 mb-2">{getDomain(project.websiteUrl)}</p>
         {project.description && (
-          <p className="text-sm text-slate-400 line-clamp-2" title={project.description}>
+          <p className="text-sm text-slate-400 line-clamp-1 md:line-clamp-2" title={project.description}>
             {project.description}
           </p>
         )}
