@@ -1,7 +1,9 @@
 export type Theme = {
-  gradient: string; // CSS gradient string
-  accent: string; // Tailwind text/color class (e.g., 'text-indigo-400')
-  border: string; // CSS color value for border (e.g., '#4F46E5')
+  gradient: string;
+  gradientFrom: string;
+  gradientTo: string;
+  accent: string;
+  border: string;
   decorShape: 'circle' | 'triangle' | 'square' | 'diamond' | 'hexagon' | 'wave' | 'cross' | 'dots';
 };
 
@@ -21,58 +23,22 @@ export function shuffleArray<T>(array: T[]): T[] {
  * Returns a deterministic theme based on the provided seed string.
  * It calculates the sum of character codes, mods by 8, and selects a preset.
  */
-export function getCardTheme(seed: string) {
-  const sum = Array.from(seed).reduce((acc, ch) => acc + ch.charCodeAt(0), 0);
-  const idx = sum % 8;
+export function getCardTheme(seed: string): Theme {
+  let hash = 0;
+  for (let i = 0; i < seed.length; i++) {
+    hash = ((hash << 5) - hash) + seed.charCodeAt(i);
+    hash |= 0;
+  }
+  const idx = Math.abs(hash) % 8;
   const themes: Theme[] = [
-    {
-      gradient: 'linear-gradient(135deg, #0f172a, #1e293b)', // slate dark
-      accent: 'text-sky-400',
-      border: '#334155',
-      decorShape: 'circle',
-    },
-    {
-      gradient: 'linear-gradient(135deg, #1a202c, #2d3748)', // gray
-      accent: 'text-emerald-400',
-      border: '#2c3e50',
-      decorShape: 'triangle',
-    },
-    {
-      gradient: 'linear-gradient(135deg, #2f855a, #276749)', // green
-      accent: 'text-amber-300',
-      border: '#38a169',
-      decorShape: 'square',
-    },
-    {
-      gradient: 'linear-gradient(135deg, #9b2c2c, #7b341e)', // deep red
-      accent: 'text-purple-300',
-      border: '#c53030',
-      decorShape: 'diamond',
-    },
-    {
-      gradient: 'linear-gradient(135deg, #4a5568, #2d3748)', // cool gray
-      accent: 'text-pink-300',
-      border: '#2f374b',
-      decorShape: 'hexagon',
-    },
-    {
-      gradient: 'linear-gradient(135deg, #2c5282, #2a4365)', // blue
-      accent: 'text-yellow-300',
-      border: '#2b6cb0',
-      decorShape: 'wave',
-    },
-    {
-      gradient: 'linear-gradient(135deg, #6b46c1, #553c9a)', // purple
-      accent: 'text-green-300',
-      border: '#805ad5',
-      decorShape: 'cross',
-    },
-    {
-      gradient: 'linear-gradient(135deg, #d69e2e, #b7791f)', // gold
-      accent: 'text-red-300',
-      border: '#d69e2e',
-      decorShape: 'dots',
-    },
+    { gradient: 'from-violet-900/40 to-violet-800/10', gradientFrom: '#2d1b69', gradientTo: '#111827', accent: '#a78bfa', border: '#4c1d95', decorShape: 'circle' },
+    { gradient: 'from-amber-900/40 to-amber-800/10',  gradientFrom: '#451a03', gradientTo: '#111827', accent: '#fcd34d', border: '#78350f', decorShape: 'triangle' },
+    { gradient: 'from-cyan-900/40 to-cyan-800/10',    gradientFrom: '#083344', gradientTo: '#111827', accent: '#67e8f9', border: '#164e63', decorShape: 'square' },
+    { gradient: 'from-rose-900/40 to-rose-800/10',    gradientFrom: '#4c0519', gradientTo: '#111827', accent: '#fb7185', border: '#881337', decorShape: 'diamond' },
+    { gradient: 'from-emerald-900/40 to-emerald-800/10', gradientFrom: '#022c22', gradientTo: '#111827', accent: '#6ee7b7', border: '#064e3b', decorShape: 'hexagon' },
+    { gradient: 'from-orange-900/40 to-orange-800/10', gradientFrom: '#431407', gradientTo: '#111827', accent: '#fdba74', border: '#7c2d12', decorShape: 'wave' },
+    { gradient: 'from-blue-900/40 to-blue-800/10',    gradientFrom: '#0c1e3d', gradientTo: '#111827', accent: '#93c5fd', border: '#1e3a5f', decorShape: 'cross' },
+    { gradient: 'from-pink-900/40 to-pink-800/10',    gradientFrom: '#500724', gradientTo: '#111827', accent: '#f9a8d4', border: '#831843', decorShape: 'dots' },
   ];
   return themes[idx];
 }
