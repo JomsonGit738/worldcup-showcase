@@ -54,6 +54,11 @@ export const ProjectGrid: React.FC<ProjectGridProps> = ({ projects, isLoading, e
             <stop offset="55%" stopColor="rgba(11,11,12,0.5)" />
             <stop offset="100%" stopColor="rgba(11,11,12,0)" />
           </linearGradient>
+          <linearGradient id="showcase-bottom-fade" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="rgba(11,11,12,0)" />
+            <stop offset="72%" stopColor="rgba(11,11,12,0.35)" />
+            <stop offset="100%" stopColor="rgba(11,11,12,0.98)" />
+          </linearGradient>
         </defs>
         <rect width="1200" height="160" fill="url(#showcase-fade)" />
         <rect width="1200" height="160" fill="url(#showcase-dots)" />
@@ -69,6 +74,7 @@ export const ProjectGrid: React.FC<ProjectGridProps> = ({ projects, isLoading, e
           stroke="rgba(103,232,249,0.10)"
           strokeWidth="1.25"
         />
+        <rect width="1200" height="160" fill="url(#showcase-bottom-fade)" />
       </svg>
 
       {isLoading && (

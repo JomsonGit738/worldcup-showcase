@@ -18,7 +18,7 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white font-sans selection:bg-indigo-500 selection:text-white pb-20">
+    <div className="min-h-screen bg-[#0b0b0c] text-white font-sans selection:bg-indigo-500 selection:text-white pb-20">
       {/* Floating submit button */}
       <motion.div
         initial={{ opacity: 0, y: -10 }}
