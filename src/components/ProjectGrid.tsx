@@ -35,13 +35,6 @@ export const ProjectGrid: React.FC<ProjectGridProps> = ({ projects, isLoading, e
     visible: { opacity: 1, y: 0 },
   };
 
-  const renderSkeleton = (key: number) => (
-    <div
-      key={key}
-      className="relative overflow-hidden rounded-lg border p-4 animate-pulse bg-gray-800"
-    />
-  );
-
   return (
     <section id="showcase" className="relative overflow-hidden p-6">
       <svg
@@ -79,8 +72,8 @@ export const ProjectGrid: React.FC<ProjectGridProps> = ({ projects, isLoading, e
       </svg>
 
       {isLoading && (
-        <div className="relative z-10 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {[...Array(6)].map((_, i) => renderSkeleton(i))}
+        <div className="flex items-center justify-center py-24">
+          <div className="w-8 h-8 border-2 border-[#1e2d45] border-t-[#f5c518] rounded-full animate-spin" />
         </div>
       )}
 

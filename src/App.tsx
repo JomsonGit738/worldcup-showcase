@@ -42,7 +42,7 @@ function App() {
       </motion.div>
 
       <main>
-        <Hero />
+        <Hero onSubmitClick={handleOpenModal} />
         <ProjectGrid projects={projects} isLoading={isLoading} error={error} />
       </main>
 

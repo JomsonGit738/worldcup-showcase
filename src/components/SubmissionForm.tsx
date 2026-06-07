@@ -14,6 +14,7 @@ export const SubmissionForm: React.FC<SubmissionFormProps> = ({ isOpen, onClose,
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors, isSubmitting },
     reset,
   } = useForm<SubmissionFormData>({
@@ -45,6 +46,11 @@ export const SubmissionForm: React.FC<SubmissionFormProps> = ({ isOpen, onClose,
 
   const onSubmit = async (data: SubmissionFormData) => {
     setApiError(null);
+    if (new Date() >= new Date('2025-06-07T15:30:00Z')) {
+      setError('root', { type: 'manual', message: 'Submissions are now closed.' });
+      setApiError('Submissions are now closed.');
+      return;
+    }
     try {
       const res = await fetch('/api/submit', {
         method: 'POST',

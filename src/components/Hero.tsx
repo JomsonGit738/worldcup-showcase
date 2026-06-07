@@ -2,7 +2,12 @@ import React from "react";
 import { motion } from "framer-motion";
 import wcupBg from "../assets/wcup.webp";
 
-interface HeroProps {}
+interface HeroProps {
+  onSubmitClick: () => void;
+}
+
+const DEADLINE = new Date('2025-06-07T15:30:00Z');
+const isOpen = new Date() < DEADLINE;
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -33,7 +38,7 @@ const heroBg: React.CSSProperties = {
   backgroundImage: `url("data:image/svg+xml,${encodeURIComponent(patternSvg)}")`,
 };
 
-export const Hero: React.FC<HeroProps> = () => {
+export const Hero: React.FC<HeroProps> = ({ onSubmitClick }) => {
 
   return (
     <section
@@ -105,6 +110,16 @@ export const Hero: React.FC<HeroProps> = () => {
           </svg>
           by Crypto Monkey Community
         </motion.a>
+
+        {isOpen && (
+          <motion.button
+            onClick={onSubmitClick}
+            className="bg-[#f5c518] hover:bg-[#e0b015] text-[#0a0f1a] font-semibold text-sm px-4 py-2 rounded-lg transition-colors"
+            variants={itemVariants}
+          >
+            Showcase Your Website
+          </motion.button>
+        )}
 
       </motion.div>
     </section>
