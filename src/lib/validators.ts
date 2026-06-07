@@ -4,9 +4,9 @@ import { z } from 'zod';
 const stripAt = (value: string) => value.replace(/^@/, '');
 
 export const submissionSchema = z.object({
-  telegramUsername: z.string().min(1, 'Telegram username required').max(100).transform(stripAt),
-  telegramId: z.string().min(1, 'Telegram ID required').max(100),
-  websiteUrl: z.string().min(1, 'Website URL required').max(100).url().refine((url) => /^https?:\/\//.test(url), {
+  telegramUsername: z.string().trim().min(1, 'Required').max(100).transform(stripAt),
+  telegramId: z.string().trim().min(1, 'Required').max(100),
+  websiteUrl: z.string().trim().url().min(1, 'Required').max(100).refine((url) => /^https?:\/\//.test(url), {
     message: 'URL must start with http:// or https://',
   }),
   consent: z.boolean().refine(val => val === true, {

@@ -26,7 +26,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return;
   }
 
-  const deadline = new Date("2025-06-07T15:30:00Z");
+  const deadline = new Date("2026-06-07T15:30:00Z");
   if (new Date() > deadline) {
     return res.status(403).json({ error: "Submissions are now closed." });
   }
@@ -65,9 +65,23 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const clean = (value: any): string =>
     typeof value === "string" ? stripHtmlTags(value).trim() : "";
 
-  const cleanTelegramUsername = clean(telegramUsername).replace(/^@/, "");
-  const cleanTelegramId = clean(telegramId);
-  const cleanWebsiteUrl = clean(websiteUrl);
+  let cleanTelegramUsername = clean(telegramUsername).replace(/^@/, "");
+  let cleanTelegramId = clean(telegramId);
+  let cleanWebsiteUrl = clean(websiteUrl);
+
+  if (
+    !cleanTelegramUsername.trim() ||
+    !cleanTelegramId.trim() ||
+    !cleanWebsiteUrl.trim()
+  ) {
+    return res
+      .status(400)
+      .json({ error: "Fields cannot be empty or whitespace." });
+  }
+
+  cleanTelegramUsername = cleanTelegramUsername.trim();
+  cleanTelegramId = cleanTelegramId.trim();
+  cleanWebsiteUrl = cleanWebsiteUrl.trim();
 
   // ----- VALIDATION -----
   if (!cleanTelegramUsername || cleanTelegramUsername.length > 100) {
