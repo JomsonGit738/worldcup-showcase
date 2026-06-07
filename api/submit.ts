@@ -43,11 +43,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   // ----- INPUT PARSING & SANITISATION -----
   const {
-    projectName,
     telegramUsername,
     telegramId,
     websiteUrl,
-    description = '',
     consent,
   } = req.body || {};
 
@@ -61,17 +59,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const clean = (value: any): string =>
     typeof value === 'string' ? stripHtmlTags(value).trim() : '';
 
-  const cleanProjectName = clean(projectName);
   const cleanTelegramUsername = clean(telegramUsername).replace(/^@/, '');
   const cleanTelegramId = clean(telegramId);
   const cleanWebsiteUrl = clean(websiteUrl);
-  const cleanDescription = clean(description);
 
   // ----- VALIDATION -----
-  if (!cleanProjectName || cleanProjectName.length > 100) {
-    res.status(400).json({ error: 'Invalid projectName' });
-    return;
-  }
   if (!cleanTelegramUsername || cleanTelegramUsername.length > 100) {
     res.status(400).json({ error: 'Invalid telegramUsername' });
     return;
@@ -82,10 +74,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
   if (!cleanWebsiteUrl || cleanWebsiteUrl.length > 100 || !isValidUrl(cleanWebsiteUrl)) {
     res.status(400).json({ error: 'Invalid websiteUrl' });
-    return;
-  }
-  if (cleanDescription.length > 100) {
-    res.status(400).json({ error: 'Invalid description' });
     return;
   }
 
@@ -110,12 +98,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // ----- DUPLICATE CHECK -----
     const existingRes = await sheets.spreadsheets.values.get({
       spreadsheetId: sheetId,
-      range: 'Sheet1!A2:F',
+      range: 'Sheet1!A2:D',
     });
     const existingRows = existingRes.data.values || [];
     const normalizedNewUrl = cleanWebsiteUrl.toLowerCase().replace(/\/$/, '');
     const duplicate = existingRows.some((row: any[]) => {
-      const url = (row[4] ?? '').toString().toLowerCase().replace(/\/$/, '');
+      const url = (row[3] ?? '').toString().toLowerCase().replace(/\/$/, '');
       return url === normalizedNewUrl;
     });
     if (duplicate) {
@@ -126,15 +114,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // ----- APPEND NEW ROW -----
     const newRow = [
       new Date().toISOString(),
-      cleanProjectName,
       cleanTelegramUsername,
       cleanTelegramId,
       cleanWebsiteUrl,
-      cleanDescription,
     ];
     await sheets.spreadsheets.values.append({
       spreadsheetId: sheetId,
-      range: 'Sheet1!A:F',
+      range: 'Sheet1!A:D',
       valueInputOption: 'RAW',
       insertDataOption: 'INSERT_ROWS',
       requestBody: {

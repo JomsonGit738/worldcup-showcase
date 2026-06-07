@@ -31,6 +31,16 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
         className={`absolute inset-0 pointer-events-none z-0 bg-gradient-to-br ${theme.gradient}`}
       />
 
+      <div
+        className="absolute inset-0 rounded-2xl overflow-hidden pointer-events-none z-0"
+        style={{
+          backgroundImage: theme.pattern,
+          backgroundSize: theme.patternSize,
+          color: theme.accent,
+          opacity: 0.06,
+        }}
+      />
+
       {/* Decorative avatar */}
       <button
         type="button"
@@ -52,10 +62,10 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
       </button>
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col">
-        <h3 className="text-lg font-bold text-white mb-1 line-clamp-1">@{project.telegramUsername}</h3>
-        <p className="text-sm font-medium mb-1" style={{ color: theme.accent }}>{project.telegramId}</p>
-        <p className="text-xs font-mono text-slate-500 mb-2">{getDomain(project.websiteUrl)}</p>
+      <div className="relative z-10 flex flex-col overflow-hidden">
+        <h3 className="text-lg font-bold text-white mb-1 truncate max-w-[80%]">@{project.telegramUsername}</h3>
+        <p className="text-sm font-medium mb-1 truncate" style={{ color: theme.accent }}>{project.telegramId}</p>
+        <p className="text-xs font-mono font-medium mb-2 text-white truncate max-w-full">{getDomain(project.websiteUrl)}</p>
       </div>
       
     </motion.div>

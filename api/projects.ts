@@ -30,7 +30,7 @@ export default async function handler(req: any, res: any) {
   try {
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId: sheetId,
-      range: 'Sheet1!A2:F', // skip header row
+      range: 'Sheet1!A2:D', // skip header row
     });
 
     const rows = response.data.values || [];
@@ -38,9 +38,9 @@ export default async function handler(req: any, res: any) {
       .map((row: any[], index: number) => ({
         id: String(index),
         timestamp: row[0] ?? '',
-        telegramUsername: row[2] ?? '',
-        telegramId: row[3] ?? '',
-        websiteUrl: row[4] ?? '',
+        telegramUsername: row[1] ?? '',
+        telegramId: row[2] ?? '',
+        websiteUrl: row[3] ?? '',
       }))
       .filter((p) => p.websiteUrl);
 
