@@ -46,7 +46,7 @@ export const SubmissionForm: React.FC<SubmissionFormProps> = ({ isOpen, onClose,
 
   const onSubmit = async (data: SubmissionFormData) => {
     setApiError(null);
-    if (new Date() >= new Date('2026-06-07T15:30:00Z')) {
+    if (new Date() >= new Date('2026-06-07T16:30:00Z')) {
       setError('root', { type: 'manual', message: 'Submissions are now closed.' });
       setApiError('Submissions are now closed.');
       return;

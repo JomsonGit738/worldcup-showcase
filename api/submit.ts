@@ -26,7 +26,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return;
   }
 
-  const deadline = new Date("2026-06-07T15:30:00Z");
+  const deadline = new Date("2026-06-07T16:30:00Z");
   if (new Date() > deadline) {
     return res.status(403).json({ error: "Submissions are now closed." });
   }

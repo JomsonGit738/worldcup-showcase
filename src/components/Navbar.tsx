@@ -5,7 +5,7 @@ interface NavbarProps {
   onSubmitClick: () => void;
 }
 
-const DEADLINE = new Date('2026-06-07T15:30:00Z');
+const DEADLINE = new Date('2026-06-07T16:30:00Z');
 const isOpen = new Date() < DEADLINE;
 
 export const Navbar: React.FC<NavbarProps> = ({ onSubmitClick }) => {
