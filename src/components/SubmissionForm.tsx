@@ -15,16 +15,13 @@ export const SubmissionForm: React.FC<SubmissionFormProps> = ({ isOpen, onClose,
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-    watch,
     reset,
   } = useForm<SubmissionFormData>({
     resolver: zodResolver(submissionSchema),
-    defaultValues: { description: '' },
   });
 
   const [apiError, setApiError] = useState<string | null>(null);
   const [showSuccess, setShowSuccess] = useState(false);
-  const description = watch('description') ?? '';
   const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -153,19 +150,6 @@ export const SubmissionForm: React.FC<SubmissionFormProps> = ({ isOpen, onClose,
                   )}
 
                   <div>
-                    <label className="block text-sm font-medium text-slate-300 mb-1">Project Name</label>
-                    <input
-                      type="text"
-                      placeholder="My World Cup Site"
-                      {...register('projectName')}
-                      className={`bg-[#0a0f1a] border ${errors.projectName ? 'border-red-500' : 'border-[#1e2d45]'} text-white placeholder:text-[#475569] rounded-lg px-4 py-3 w-full text-sm focus:outline-none focus:border-[#f5c518] transition-colors duration-150`}
-                    />
-                    {errors.projectName && (
-                      <p className="mt-1 text-xs text-red-400">{errors.projectName.message?.toString()}</p>
-                    )}
-                  </div>
-
-                  <div>
                     <label className="block text-sm font-medium text-slate-300 mb-1">Telegram Username</label>
                     <input
                       type="text"
@@ -203,20 +187,6 @@ export const SubmissionForm: React.FC<SubmissionFormProps> = ({ isOpen, onClose,
                     {errors.websiteUrl && (
                       <p className="mt-1 text-xs text-red-400">{errors.websiteUrl.message?.toString()}</p>
                     )}
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-slate-300 mb-1">Short Description (optional)</label>
-                    <textarea
-                      rows={2}
-                      placeholder="What makes your site unique?"
-                      {...register('description')}
-                      className={`bg-[#0a0f1a] border ${errors.description ? 'border-red-500' : 'border-[#1e2d45]'} text-white placeholder:text-[#475569] rounded-lg px-4 py-3 w-full text-sm focus:outline-none focus:border-[#f5c518] transition-colors duration-150`}
-                    />
-                    <div className="flex justify-between items-start mt-1">
-                      <span className="text-xs text-red-400">{errors.description?.message?.toString()}</span>
-                      <span className="text-xs text-slate-500 ml-auto">{description.length}/100</span>
-                    </div>
                   </div>
 
                   <div className="flex items-start gap-3">

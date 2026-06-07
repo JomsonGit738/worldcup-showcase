@@ -20,6 +20,20 @@ export function shuffleArray<T>(array: T[]): T[] {
 }
 
 /**
+ * Generates a deterministic card ID from a seed string.
+ */
+export function generateCardId(seed: string): string {
+  let hash = 0;
+  for (let i = 0; i < seed.length; i++) {
+    hash = ((hash << 5) - hash) + seed.charCodeAt(i);
+    hash |= 0;
+  }
+
+  const value = Math.abs(hash) % 10000;
+  return `CM-${value.toString().padStart(4, '0')}`;
+}
+
+/**
  * Returns a deterministic theme based on the provided seed string.
  * It calculates the sum of character codes, mods by 8, and selects a preset.
  */

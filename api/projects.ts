@@ -38,13 +38,11 @@ export default async function handler(req: any, res: any) {
       .map((row: any[], index: number) => ({
         id: String(index),
         timestamp: row[0] ?? '',
-        projectName: row[1] ?? '',
         telegramUsername: row[2] ?? '',
         telegramId: row[3] ?? '',
         websiteUrl: row[4] ?? '',
-        description: row[5] ?? '',
       }))
-      .filter((p) => p.projectName && p.websiteUrl);
+      .filter((p) => p.websiteUrl);
 
     res.status(200).json(data);
   } catch (error: any) {

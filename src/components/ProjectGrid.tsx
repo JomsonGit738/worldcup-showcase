@@ -43,7 +43,7 @@ export const ProjectGrid: React.FC<ProjectGridProps> = ({ projects, isLoading, e
   );
 
   return (
-    <section id="showcase" className="py-12">
+    <section id="showcase" className="p-6">
       {isLoading && (
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {[...Array(6)].map((_, i) => renderSkeleton(i))}
